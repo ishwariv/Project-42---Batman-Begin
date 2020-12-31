@@ -1,14 +1,14 @@
 class RainDrops{
-    constructor(x,y,radius){
+    constructor(x,y,r){
         var options={
-            friction:0.1,
-            restitution:0.4
+            friction:0.4,
+            restitution:3
         }
-
-        this.body = Bodies.circle(x,y,radius,options);
-        this.radius = radius;
+        this.r = 7;
         this.x = x;
         this.y = y;
+        this.body = Bodies.circle(x,y,7,options);
+        this.velocity=Math.round(random(5,10));;
         World.add(world,this.body);
     }
     updatePos() {
@@ -21,12 +21,12 @@ class RainDrops{
         var angle = this.body.angle;
   
         push();
-        fill('blue');
-  
+        noStroke();
+        fill("#1527ad");       
         translate(pos.x, pos.y);
         rotate(angle);
         ellipseMode(CENTER);
-        ellipse(0, 0, this.radius, this.radius);
+        ellipse(0, 0, this.r, this.r);
         pop();
      }
 }

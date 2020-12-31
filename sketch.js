@@ -8,7 +8,6 @@ var umbrella;
 var maxDrops=100;
 var drops = [];
 var thunder, thunder1, thunder2, thunder3, thunder4;
-var thunderCreatedAt;
 
 function preload(){
     walkingAnimation = loadAnimation('images/Walking Frame/walking_1.png', 'images/Walking Frame/walking_2.png', 'images/Walking Frame/walking_3.png', 'images/Walking Frame/walking_4.png', 'images/Walking Frame/walking_5.png', 'images/Walking Frame/walking_6.png', 'images/Walking Frame/walking_7.png', 'images/Walking Frame/walking_8.png');
@@ -19,15 +18,13 @@ function preload(){
 }
 
 function setup(){
-   createCanvas(600,600);
+   createCanvas(630,630);
    engine = Engine.create();
    world = engine.world;
 
-   umbrella = new Umbrella(width/2, height-200, 110, walkingAnimation);
-    
-   for(let i=0; i<maxDrops; i++) {
-    drops.push(new RainDrops(random(0, 400), random(0, 400)));
- }
+   umbrella = new Umbrella(width/2-300, height-600, 110, walkingAnimation);
+   umbrella.scale=0.05;
+   
 }
 
 function draw(){
@@ -35,33 +32,32 @@ function draw(){
 
    Engine.update(engine);
 
-   if(frameCount % 80 === 0){
-
-    randX = random(100, 700);
-    randY = random(50, 70);
-
-    thunder = createSprite(randX, randY);
-    thunderCreatedAt = frameCount;
-   switch(rand) {
-    case 1: thunder.addImage(thunderImg1);
-            break;
-    case 2: thunder.addImage(thunderImg2);
-            break;
-    case 3: thunder.addImage(thunderImg3);
-            break;
-    case 4: thunder.addImage(thunderImg4);
-            break;
-    default: break;
+    for(var i=0; i<maxDrops; i++) {
+        drops.push(new RainDrops(random(0, 400), random(0, 400)));
+        drops[i].updatePos();
+        drops[i].display();
+        spawnLightning();
         }
+        console.log("Hi");
     
-    }
-    if (thunderCreatedAt + 15 === frameCount) {
-        thunder.destroy();
-        }
-
     umbrella.display();
-    
-  
-    drawSprites();
-}   
 
+function spawnLightning(){
+    if(frameCount%150 === 0) {
+        thunder=createSprite(100,50,10,80);
+        var rand = Math.round(random(1,4));
+        console.log("Ha");
+        switch(rand) {
+            case 1: thunder.addImage(thunder1);
+                  break;
+            case 2: thunder.addImage(thunder2);
+                  break;
+            case 3: thunder.addImage(thunder3);
+                  break;
+            case 4: thunder.addImage(thunder4);
+                  break;
+            default: break;
+            }
+        }
+}
+}

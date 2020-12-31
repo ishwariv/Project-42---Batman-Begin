@@ -14,6 +14,5 @@ class Umbrella {
     display() {
     var pos = this.body.position;
     image(this.image, pos.x, pos.y, this.width, this.height);
-
     }
 }
